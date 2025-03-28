@@ -2,14 +2,16 @@
 SAE - 924 Maximilien - Module 3
 
 ---Controls---
-WASD - Movement
-E - Use your sword (As of right now, the sword only works when you're not moving)
+
+WASD - Movement | E - Use your sword (As of right now, the sword only works when you're not moving)
 
 ---Access AI Scene---
+
 In assets, you'll have to access the "02_Scenes" folder and open the "AI_TestScene.
 This scene contains usable buttons to spawn 5 different type of enemies.
 
 ---Enemies---
+
 1 - Mushroom
 A basic chase enemey, will wander when it doesn't see you and chase if he does. When close enough, he'll take some time before doing a melee attack.
 
