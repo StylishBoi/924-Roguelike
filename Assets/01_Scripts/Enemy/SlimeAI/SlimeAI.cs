@@ -34,7 +34,6 @@ public class SlimeAI : MonoBehaviour
     private float distance;
     private AIPath path;
     private EnemyHealth _enemyHealth;
-    
 
     private Vector2 _targetDirection;
     private Vector2 hitPosition;

@@ -8,15 +8,26 @@ public class MushroomFSM : MonoBehaviour
         Empty,
         Wander,
         Chase,
-        Attack
+        Attack,
+        Dead
     }
+
+    private Transform playerCoordinates;
+    private float distanceToPlayer;
     
     private FSM_State _currentState = FSM_State.Empty;
     private MushroomAI _mushroom;
+    private EnemyHealth _enemyHealth;
 
     private void Start()
     {
         _mushroom=GetComponent<MushroomAI>();
+        playerCoordinates=GameObject.FindGameObjectWithTag("Player").transform;
+        
+        if(TryGetComponent(out EnemyHealth outEnemyHealth))
+        {
+            _enemyHealth=outEnemyHealth;
+        }
         
         SetState(FSM_State.Wander);
     }
@@ -32,17 +43,34 @@ public class MushroomFSM : MonoBehaviour
         switch (state)
         {
             case FSM_State.Wander:
-                if(_mushroom.HasDetected) SetState(FSM_State.Chase);
+                if (_enemyHealth.Dead)
+                    SetState(FSM_State.Dead);
+                
+                else if(_mushroom.hasDetected)
+                    SetState(FSM_State.Chase);
                 break;
+            
             case FSM_State.Chase:
-                if(!_mushroom.HasDetected)
+                if (_enemyHealth.Dead)
+                    SetState(FSM_State.Dead);
+                
+                else if (distanceToPlayer < _mushroom.escapeCircle)
+                {
+                    _mushroom.hasDetected = false;
                     SetState(FSM_State.Wander);
-                if(_mushroom.HasDetected && _mushroom.InAttackRange)
+                }
+                else if(distanceToPlayer<_mushroom.stopDistance)
                     SetState(FSM_State.Attack);
                 break;
+            
             case FSM_State.Attack:
-                if(!_mushroom.InAttackRange)
+                if (_enemyHealth.Dead)
+                    SetState(FSM_State.Dead);
+                
+                else if (distanceToPlayer>_mushroom.stopDistance && !_mushroom.attackAnimationPlaying)
                     SetState(FSM_State.Chase);
+                break;
+            case FSM_State.Dead:
                 break;
             case FSM_State.Empty:
             default:
@@ -53,7 +81,7 @@ public class MushroomFSM : MonoBehaviour
 
     private void OnStateEnter(FSM_State state)
     {
-        Debug.Log($"OnEnter : {state}");
+        //Debug.Log($"OnEnter : {state}");
         
         switch (state)
         {
@@ -66,6 +94,9 @@ public class MushroomFSM : MonoBehaviour
             case FSM_State.Attack:
                 _mushroom.AttackFactor = 1f;
                 break;
+            case FSM_State.Dead:
+                _mushroom.DeathFactor = 1f;
+                break;
             case FSM_State.Empty:
             default:
                 throw new ArgumentOutOfRangeException(nameof(state), state, null);
@@ -74,7 +105,7 @@ public class MushroomFSM : MonoBehaviour
     }
     private void OnStateExit(FSM_State state)
     {
-        Debug.Log($"OnExit : {state}");
+        //Debug.Log($"OnExit : {state}");
         
         switch (state)
         {
@@ -87,6 +118,9 @@ public class MushroomFSM : MonoBehaviour
             case FSM_State.Attack:
                 _mushroom.AttackFactor = 0f;
                 break;
+            case FSM_State.Dead:
+                _mushroom.DeathFactor = 0f;
+                break;
             case FSM_State.Empty:
             default:
                 throw new ArgumentOutOfRangeException(nameof(state), state, null);
@@ -94,16 +128,16 @@ public class MushroomFSM : MonoBehaviour
     }
     private void OnStateUpdate(FSM_State state)
     {
-        Debug.Log($"OnUpdate : {state}");
+        //Debug.Log($"OnUpdate : {state}");
 
         switch (state)
         {
             case FSM_State.Chase:
-                break;
-            
-            case FSM_State.Wander:
             case FSM_State.Attack: 
-                // Nothing to do yet
+                distanceToPlayer=Vector2.Distance(transform.position,playerCoordinates.transform.position);
+                break;
+            case FSM_State.Wander:
+            case FSM_State.Dead:
                 break;
             case FSM_State.Empty:
             default:

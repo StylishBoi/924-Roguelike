@@ -31,6 +31,11 @@ public class PlayerControls : MonoBehaviour
     private const string _lastVertical = "LastVertical";
     private const string _attack = "Attack";
     private const string _dead = "Dead";
+    
+    public int SeekDamage    {
+        get => damagePoint;
+        set => damagePoint = value;
+    }
 
     private void Start()
     {

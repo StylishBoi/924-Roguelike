@@ -4999,9 +4999,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1973596588}
+      - m_Target: {fileID: 1070564118}
         m_TargetAssemblyTypeName: EnemySpawn, Assembly-CSharp
-        m_MethodName: SpawnBat
+        m_MethodName: SpawnEnemy
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5986,9 +5986,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1973596588}
+      - m_Target: {fileID: 869021466}
         m_TargetAssemblyTypeName: EnemySpawn, Assembly-CSharp
-        m_MethodName: SpawnSlime
+        m_MethodName: SpawnEnemy
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6072,7 +6072,7 @@ MonoBehaviour:
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
     cacheStartup: 0
-  showNavGraphs: 0
+  showNavGraphs: 1
   showUnwalkableNodes: 1
   debugMode: 0
   debugFloor: 0
@@ -6133,6 +6133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 869021465}
   - component: {fileID: 869021464}
+  - component: {fileID: 869021466}
   m_Layer: 0
   m_Name: SlimeSpawner
   m_TagString: Untagged
@@ -6211,6 +6212,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1973596589}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &869021466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 869021463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96fa901586494364eb5a752e011ae3e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 4983321916444859880, guid: 7e02e32c04fb38542afcb699ad8da7f9,
+    type: 3}
 --- !u!1 &962195119
 GameObject:
   m_ObjectHideFlags: 0
@@ -8273,6 +8288,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1070564117}
   - component: {fileID: 1070564116}
+  - component: {fileID: 1070564118}
   m_Layer: 0
   m_Name: BatSpawner
   m_TagString: Untagged
@@ -8351,6 +8367,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1973596589}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1070564118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1070564115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96fa901586494364eb5a752e011ae3e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 8509351123786445813, guid: f4e70872180185f4583010c05ea04d33,
+    type: 3}
 --- !u!1 &1153010393
 GameObject:
   m_ObjectHideFlags: 0
@@ -8500,7 +8530,12 @@ PrefabInstance:
     - target: {fileID: 2005065557531097322, guid: 26fdaf79e8f23944bb781460c04da73c,
         type: 3}
       propertyPath: maxHealth
-      value: 5
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2005065557531097322, guid: 26fdaf79e8f23944bb781460c04da73c,
+        type: 3}
+      propertyPath: _invincibilityTimer
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2221697671669536405, guid: 26fdaf79e8f23944bb781460c04da73c,
         type: 3}
@@ -8552,6 +8587,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4805469929772503738, guid: 26fdaf79e8f23944bb781460c04da73c,
+        type: 3}
+      propertyPath: invicibilityMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 46e1743f04af32d46a353dc87fb903bc, type: 2}
     - target: {fileID: 7102638536342896721, guid: 26fdaf79e8f23944bb781460c04da73c,
         type: 3}
       propertyPath: m_Name
@@ -8572,6 +8612,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1256625436}
   - component: {fileID: 1256625435}
+  - component: {fileID: 1256625437}
   m_Layer: 0
   m_Name: GiantSpawner
   m_TagString: Untagged
@@ -8650,6 +8691,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1973596589}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1256625437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256625434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96fa901586494364eb5a752e011ae3e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 3333178596548653838, guid: 1b022f2fb803ff246adab31b946a7def,
+    type: 3}
 --- !u!1 &1335572909
 GameObject:
   m_ObjectHideFlags: 0
@@ -8660,6 +8715,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1335572910}
   - component: {fileID: 1335572911}
+  - component: {fileID: 1335572912}
   m_Layer: 0
   m_Name: BlueSlimeSpawner
   m_TagString: Untagged
@@ -8738,6 +8794,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1335572912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335572909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96fa901586494364eb5a752e011ae3e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 4655435180468717122, guid: 351c770745cbf824e81dde1244f8716b,
+    type: 3}
 --- !u!1 &1423238137
 GameObject:
   m_ObjectHideFlags: 0
@@ -8821,9 +8891,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1973596588}
+      - m_Target: {fileID: 1256625437}
         m_TargetAssemblyTypeName: EnemySpawn, Assembly-CSharp
-        m_MethodName: SpawnGiant
+        m_MethodName: SpawnEnemy
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9157,6 +9227,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1771432750}
   - component: {fileID: 1771432749}
+  - component: {fileID: 1771432751}
   m_Layer: 0
   m_Name: MushroomSpawner
   m_TagString: Untagged
@@ -9235,6 +9306,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1973596589}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1771432751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771432748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96fa901586494364eb5a752e011ae3e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 2546316105402834129, guid: 3d8e791c16d4fb44c9006d1a36b269fe,
+    type: 3}
 --- !u!1 &1934970293
 GameObject:
   m_ObjectHideFlags: 0
@@ -9394,9 +9479,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1973596588}
+      - m_Target: {fileID: 1335572912}
         m_TargetAssemblyTypeName: EnemySpawn, Assembly-CSharp
-        m_MethodName: SpawnBlueSlime
+        m_MethodName: SpawnEnemy
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9453,7 +9538,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1973596589}
-  - component: {fileID: 1973596588}
   m_Layer: 0
   m_Name: ---Spawners---
   m_TagString: Untagged
@@ -9461,33 +9545,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1973596588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1973596587}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96fa901586494364eb5a752e011ae3e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mushroomSpawnPoint: {fileID: 1771432748}
-  slimeSpawnPoint: {fileID: 869021463}
-  batSpawnPoint: {fileID: 1070564115}
-  giantSpawnPoint: {fileID: 1256625434}
-  blueSlimeSpawnPoint: {fileID: 1335572909}
-  mushroomPrefab: {fileID: 2546316105402834129, guid: 3d8e791c16d4fb44c9006d1a36b269fe,
-    type: 3}
-  slimePrefab: {fileID: 4983321916444859880, guid: 7e02e32c04fb38542afcb699ad8da7f9,
-    type: 3}
-  batPrefab: {fileID: 8509351123786445813, guid: f4e70872180185f4583010c05ea04d33,
-    type: 3}
-  giantPrefab: {fileID: 3333178596548653838, guid: 1b022f2fb803ff246adab31b946a7def,
-    type: 3}
-  blueSlimePrefab: {fileID: 4655435180468717122, guid: 351c770745cbf824e81dde1244f8716b,
-    type: 3}
 --- !u!4 &1973596589
 Transform:
   m_ObjectHideFlags: 0
@@ -9638,9 +9695,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1973596588}
+      - m_Target: {fileID: 1771432751}
         m_TargetAssemblyTypeName: EnemySpawn, Assembly-CSharp
-        m_MethodName: SpawnMushroom
+        m_MethodName: SpawnEnemy
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9780,6 +9837,142 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &3319094847913623479
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1943701130317782718, guid: f2542bf5c65a9b644b89a89fd975865c,
+        type: 3}
+      propertyPath: m_Name
+      value: HealthRestore
+      objectReference: {fileID: 0}
+    - target: {fileID: 7970013391590044496, guid: f2542bf5c65a9b644b89a89fd975865c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7970013391590044496, guid: f2542bf5c65a9b644b89a89fd975865c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 7970013391590044496, guid: f2542bf5c65a9b644b89a89fd975865c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7970013391590044496, guid: f2542bf5c65a9b644b89a89fd975865c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7970013391590044496, guid: f2542bf5c65a9b644b89a89fd975865c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7970013391590044496, guid: f2542bf5c65a9b644b89a89fd975865c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7970013391590044496, guid: f2542bf5c65a9b644b89a89fd975865c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7970013391590044496, guid: f2542bf5c65a9b644b89a89fd975865c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7970013391590044496, guid: f2542bf5c65a9b644b89a89fd975865c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7970013391590044496, guid: f2542bf5c65a9b644b89a89fd975865c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f2542bf5c65a9b644b89a89fd975865c, type: 3}
+--- !u!1001 &6654135097901681155
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4239682858877470675, guid: 4ef2e5de11792f84999d99d8e88aac4a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 4239682858877470675, guid: 4ef2e5de11792f84999d99d8e88aac4a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4239682858877470675, guid: 4ef2e5de11792f84999d99d8e88aac4a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4239682858877470675, guid: 4ef2e5de11792f84999d99d8e88aac4a,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4239682858877470675, guid: 4ef2e5de11792f84999d99d8e88aac4a,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4239682858877470675, guid: 4ef2e5de11792f84999d99d8e88aac4a,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4239682858877470675, guid: 4ef2e5de11792f84999d99d8e88aac4a,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4239682858877470675, guid: 4ef2e5de11792f84999d99d8e88aac4a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4239682858877470675, guid: 4ef2e5de11792f84999d99d8e88aac4a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4239682858877470675, guid: 4ef2e5de11792f84999d99d8e88aac4a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4745518181441281455, guid: 4ef2e5de11792f84999d99d8e88aac4a,
+        type: 3}
+      propertyPath: m_Name
+      value: PowerUp
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4ef2e5de11792f84999d99d8e88aac4a, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -9792,3 +9985,5 @@ SceneRoots:
   - {fileID: 827031506}
   - {fileID: 1934970296}
   - {fileID: 1207533543}
+  - {fileID: 6654135097901681155}
+  - {fileID: 3319094847913623479}
