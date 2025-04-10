@@ -7,15 +7,24 @@ public class BatFSM : MonoBehaviour
     {
         Empty,
         Observation,
-        Attack
+        Attack,
+        Dead
     }
     
     private FSM_State _currentState = FSM_State.Empty;
     private BatAI _bat;
+    private EnemyHealth _enemyHealth;
 
     private void Start()
     {
-        _bat=GetComponent<BatAI>();
+        if(TryGetComponent(out _enemyHealth))
+        {
+            Debug.Log("EnemyHealth attached");
+        }
+        if(TryGetComponent(out _bat))
+        {
+            Debug.Log("Bat attached");
+        }
         
         SetState(FSM_State.Observation);
     }
@@ -27,15 +36,20 @@ public class BatFSM : MonoBehaviour
     }
     private void CheckTransitions(FSM_State state)
     {
+        if (_enemyHealth.Dead)
+        {
+            SetState(FSM_State.Dead);  
+            return;
+        }
         
         switch (state)
         {
             case FSM_State.Observation:
-                if(_bat.HasDetected)
+                if(_bat.hasDetected)
                     SetState(FSM_State.Attack);
                 break;
             case FSM_State.Attack:
-                if(!_bat.HasDetected)
+                if(!_bat.hasDetected)
                     SetState(FSM_State.Observation);
                 break;
             case FSM_State.Empty:
@@ -47,7 +61,7 @@ public class BatFSM : MonoBehaviour
 
     private void OnStateEnter(FSM_State state)
     {
-        Debug.Log($"OnEnter : {state}");
+        //Debug.Log($"OnEnter : {state}");
         
         switch (state)
         {
@@ -57,6 +71,9 @@ public class BatFSM : MonoBehaviour
             case FSM_State.Attack:
                 _bat.AttackFactor = 1f;
                 break;
+            case FSM_State.Dead:
+                _bat.DeathFactor = 1f;
+                break;
             case FSM_State.Empty:
             default:
                 throw new ArgumentOutOfRangeException(nameof(state), state, null);
@@ -65,7 +82,7 @@ public class BatFSM : MonoBehaviour
     }
     private void OnStateExit(FSM_State state)
     {
-        Debug.Log($"OnExit : {state}");
+        //Debug.Log($"OnExit : {state}");
         
         switch (state)
         {
@@ -74,6 +91,9 @@ public class BatFSM : MonoBehaviour
                 break;
             case FSM_State.Attack:
                 _bat.AttackFactor = 0f;
+                break;
+            case FSM_State.Dead:
+                _bat.DeathFactor = 0f;
                 break;
             case FSM_State.Empty:
             default:

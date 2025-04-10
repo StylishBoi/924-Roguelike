@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Pathfinding;
-using UnityEngine.Rendering.Universal;
 
+[RequireComponent(typeof(Animator))]
 public class MushroomAI : MonoBehaviour
 {
     [Header("Base Stats")]
@@ -85,16 +85,13 @@ public class MushroomAI : MonoBehaviour
             _player=outPlayer;
         }
         
-        //_player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
-        //_target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        
-        if(TryGetComponent(out Animator outAnimator))
+        if(TryGetComponent(out _animator))
         {
-            _animator=outAnimator;
+            Debug.Log("Animator attached");
         }
-        if(TryGetComponent(out AIPath outAIPath))
+        if(TryGetComponent(out _path))
         {
-            _path=outAIPath;
+            Debug.Log("AIPath attached");
         }
         
         _contactFilter.SetLayerMask(detectionMask);
@@ -189,6 +186,9 @@ public class MushroomAI : MonoBehaviour
     
     void Attack()
     {
+        //Disable movement when in attack mode
+        _path.destination = transform.position;
+        
         //Start the AI attack animation
         if (_passedTime >= attackDelay)
         {

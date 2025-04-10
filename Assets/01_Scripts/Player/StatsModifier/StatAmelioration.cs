@@ -11,8 +11,15 @@ public class StatAmelioration : MonoBehaviour
     
     void Start()
     {
-        _playerControls = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControls>();
-        _playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
+        if (GameObject.FindGameObjectWithTag("Player").TryGetComponent(out PlayerControls outControls))
+        {
+            _playerControls=outControls;
+        }
+        
+        if (GameObject.FindGameObjectWithTag("Player").TryGetComponent(out PlayerHealth outPlayer))
+        {
+            _playerHealth=outPlayer;
+        }
     }
 
     private void IncreaseStats()

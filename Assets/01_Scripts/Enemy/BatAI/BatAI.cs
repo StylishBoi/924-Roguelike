@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using Pathfinding;
-using UnityEngine.Serialization;
 
+[RequireComponent(typeof(Animator))]
 public class BatAI : MonoBehaviour
 {
     [Header("Base Stats")]
@@ -12,28 +11,28 @@ public class BatAI : MonoBehaviour
     
     [Header("Observation")]
     [SerializeField] [Range(0, 1)] private float observationFactor=1f;
-    public bool HasDetected;
+    public bool hasDetected;
     
     [Header("Attack")]
     [SerializeField] [Range(0, 1)] private float attackFactor=1f;
     [SerializeField] private float shotTimer=3f;
     [SerializeField] private GameObject projectilePrefab;
-    private float shotCooldown;
+    private float _shotCooldown;
     
-    private Transform target;
-    private float distance;
-    private EnemyHealth _enemyHealth;
+    [Header("Death")]
+    [SerializeField] [Range(0, 1)] private float deathFactor=1f;
+    
+    private Transform _target;
+    private float _distance;
     
     private Vector2 hitPosition;
     
     private ContactFilter2D _contactFilter;
-    
-    private Rigidbody2D _rb;
     private Animator _animator;
     
-    private const string _horizontal = "Horizontal";
+    private const string Horizontal = "Horizontal";
     private const string _attack = "Attack";
-    private const string _dead = "Dead";
+    private const string Dead = "Dead";
     
     public float WanderFactor
     {
@@ -46,28 +45,38 @@ public class BatAI : MonoBehaviour
         get => attackFactor;
         set => attackFactor = value;
     }
+    
+    public float DeathFactor
+    {
+        get => deathFactor;
+        set => deathFactor = value;
+    }
 
     
     void Start()
     {
-        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        if (GameObject.FindGameObjectWithTag("Player").TryGetComponent(out Transform outTarget))
+        {
+            _target = outTarget;
+        }
         
-        _rb = GetComponent<Rigidbody2D>();
-        _animator = GetComponent<Animator>();
-        _enemyHealth = GetComponent<EnemyHealth>();
+        if(TryGetComponent(out _animator))
+        {
+            Debug.Log("Animator attached");
+        }
         
         _contactFilter.SetLayerMask(detectionMask);
         
-        shotCooldown=shotTimer;
+        _shotCooldown=shotTimer;
     }
 
     private void Update()
     {
         //Animation
-        _animator.SetFloat(_horizontal, target.position.x - transform.position.x);
+        _animator.SetFloat(Horizontal, _target.position.x - transform.position.x);
         
         //FSM States
-        if (_enemyHealth.Dead)
+        if (deathFactor > 0)
         {
             Death();
         }
@@ -77,12 +86,9 @@ public class BatAI : MonoBehaviour
         }
         if (attackFactor > 0)
         {
+            _shotCooldown += Time.deltaTime;
             Attack();
-        }
-
-        if (HasDetected)
-        {
-            shotCooldown += Time.deltaTime;
+            Observation();
         }
     }
     
@@ -91,16 +97,15 @@ public class BatAI : MonoBehaviour
         //Player detection
         List<Collider2D> colliders = new List<Collider2D>();
         Physics2D.OverlapCircle(new Vector2(transform.position.x,transform.position.y), detectionCircle, _contactFilter, colliders);
-       
         
-        distance=Vector2.Distance(transform.position,target.transform.position);
+        _distance=Vector2.Distance(transform.position,_target.transform.position);
         
         Collider2D goodObject = colliders.FirstOrDefault(c => c.CompareTag("Player"));
         if (goodObject != null)
         {
             Vector2 goodObjectDistance = goodObject.bounds.center - transform.position;
             
-            if (distance < detectionCircle)
+            if (_distance < detectionCircle)
             {
                 List<RaycastHit2D> hit = new List<RaycastHit2D>();
                 if (Physics2D.Raycast(new Vector2(transform.position.x,transform.position.y), goodObjectDistance, _contactFilter, hit, detectionCircle) > 0)
@@ -108,19 +113,21 @@ public class BatAI : MonoBehaviour
                     hitPosition=hit[0].point;
                     if (hit[0].collider == goodObject)
                     {
-                        HasDetected = true;
+                        hasDetected = true;
+                        return;
                     }
                 }
             }
         }
+        hasDetected = false;
     }
     
     void Attack()
     {
-        if (shotCooldown > shotTimer)
+        if (_shotCooldown > shotTimer)
         {
             _animator.SetBool(_attack, true);
-            shotCooldown = 0;
+            _shotCooldown = 0;
         }
         
         if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
@@ -136,7 +143,7 @@ public class BatAI : MonoBehaviour
     
     void Death()
     {
-        _animator.SetBool(_dead, true);
+        _animator.SetBool(Dead, true);
 
         //Destroy the enemy after the death animation is played
         if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Death"))

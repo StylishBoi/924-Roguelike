@@ -9,8 +9,10 @@ public class HealthRestore : MonoBehaviour
     
     void Start()
     {
-        
-        _playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
+        if (GameObject.FindGameObjectWithTag("Player").TryGetComponent(out PlayerHealth outPlayer))
+        {
+            _playerHealth=outPlayer;
+        }
     }
 
     void Heal()

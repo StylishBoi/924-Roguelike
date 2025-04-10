@@ -4,13 +4,13 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private int maxHealth = 5;
     [SerializeField] private float knockbackForce = 500f;
-    [SerializeField] private float _invincibilityTimer=3f;
-    public bool Dead;
+    [SerializeField] private float invincibilityTimer=1f;
+    public bool dead;
 
     public int currentHealth;
     private float _invincibilityCooldown;
     private Rigidbody2D _rb;
-    private DamageFlash flash;
+    private DamageFlash _flash;
     
     public int SeekHealth    {
         get => maxHealth;
@@ -24,8 +24,14 @@ public class PlayerHealth : MonoBehaviour
     
     private void Start()
     {
-        flash=GetComponent<DamageFlash>();
-        _rb = GetComponent<Rigidbody2D>();
+        if(TryGetComponent(out _rb))
+        {
+            Debug.Log("Rigidbody attached");
+        }
+        if(TryGetComponent(out _flash))
+        {
+            Debug.Log("Flash attached");
+        }
         
         currentHealth = maxHealth;
     }
@@ -39,7 +45,7 @@ public class PlayerHealth : MonoBehaviour
         
         if (currentHealth <= 0)
         {
-            Dead = true;
+            dead = true;
         }
         
         _invincibilityCooldown+=Time.deltaTime;
@@ -47,9 +53,9 @@ public class PlayerHealth : MonoBehaviour
     
     public void DamageTaken(int damage, Vector2 damagePosition)
     {
-        if (_invincibilityTimer < _invincibilityCooldown)
+        if (invincibilityTimer < _invincibilityCooldown)
         {
-            flash.Flash();
+            _flash.Flash();
             currentHealth -= damage;
 
             Vector2 playerPosition = new Vector2(transform.position.x, transform.position.y);

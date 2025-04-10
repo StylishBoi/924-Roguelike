@@ -12,8 +12,8 @@ public class MushroomFSM : MonoBehaviour
         Dead
     }
 
-    private Transform playerCoordinates;
-    private float distanceToPlayer;
+    private Transform _playerCoordinates;
+    private float _distanceToPlayer;
     
     private FSM_State _currentState = FSM_State.Empty;
     private MushroomAI _mushroom;
@@ -21,12 +21,15 @@ public class MushroomFSM : MonoBehaviour
 
     private void Start()
     {
-        _mushroom=GetComponent<MushroomAI>();
-        playerCoordinates=GameObject.FindGameObjectWithTag("Player").transform;
+        _playerCoordinates=GameObject.FindGameObjectWithTag("Player").transform;
         
-        if(TryGetComponent(out EnemyHealth outEnemyHealth))
+        if(TryGetComponent(out _enemyHealth))
         {
-            _enemyHealth=outEnemyHealth;
+            Debug.Log("EnemyHealth attached");
+        }
+        if(TryGetComponent(out _mushroom))
+        {
+            Debug.Log("Mushroom attached");
         }
         
         SetState(FSM_State.Wander);
@@ -39,39 +42,35 @@ public class MushroomFSM : MonoBehaviour
     }
     private void CheckTransitions(FSM_State state)
     {
+        if (_enemyHealth.Dead)
+        {
+            SetState(FSM_State.Dead);  
+            return;
+        }
         
         switch (state)
         {
             case FSM_State.Wander:
-                if (_enemyHealth.Dead)
-                    SetState(FSM_State.Dead);
-                
-                else if(_mushroom.hasDetected)
+                if(_mushroom.hasDetected)
                     SetState(FSM_State.Chase);
                 break;
             
             case FSM_State.Chase:
-                if (_enemyHealth.Dead)
-                    SetState(FSM_State.Dead);
-                
-                else if (distanceToPlayer < _mushroom.escapeCircle)
+                if (_distanceToPlayer > _mushroom.escapeCircle)
                 {
                     _mushroom.hasDetected = false;
                     SetState(FSM_State.Wander);
                 }
-                else if(distanceToPlayer<_mushroom.stopDistance)
+                else if(_distanceToPlayer<_mushroom.stopDistance)
                     SetState(FSM_State.Attack);
                 break;
             
             case FSM_State.Attack:
-                if (_enemyHealth.Dead)
-                    SetState(FSM_State.Dead);
-                
-                else if (distanceToPlayer>_mushroom.stopDistance && !_mushroom.attackAnimationPlaying)
+                if (_distanceToPlayer>_mushroom.stopDistance && !_mushroom.attackAnimationPlaying)
                     SetState(FSM_State.Chase);
                 break;
+            
             case FSM_State.Dead:
-                break;
             case FSM_State.Empty:
             default:
                 throw new ArgumentOutOfRangeException(nameof(state), state, null);
@@ -134,7 +133,7 @@ public class MushroomFSM : MonoBehaviour
         {
             case FSM_State.Chase:
             case FSM_State.Attack: 
-                distanceToPlayer=Vector2.Distance(transform.position,playerCoordinates.transform.position);
+                _distanceToPlayer=Vector2.Distance(transform.position,_playerCoordinates.transform.position);
                 break;
             case FSM_State.Wander:
             case FSM_State.Dead:

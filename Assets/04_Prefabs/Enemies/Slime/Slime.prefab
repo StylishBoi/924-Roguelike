@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6816087800700624793}
   - component: {fileID: 6500543304215446556}
   - component: {fileID: 4824363005362393732}
+  - component: {fileID: -4219887979103333217}
   - component: {fileID: 8503202932981283481}
   - component: {fileID: 7187889565952792076}
   - component: {fileID: 3704449564121795971}
@@ -200,16 +201,29 @@ MonoBehaviour:
   detectionMask:
     serializedVersion: 2
     m_Bits: 384
-  chaseFactor: 1
-  HasDetected: 0
-  wanderFactor: 1
+  isBlueSlime: 0
+  chaseFactor: 0
+  hasDetected: 0
+  wanderFactor: 0
   wanderRadius: 3
   wanderPause: 0
-  attackFactor: 1
+  deathFactor: 0
   explosionDamage: 3
   explosionRadius: 2
   explosionCircle: {fileID: 7880640820910836347}
-  InAttackRange: 0
+  babySlime: {fileID: 4983321916444859880}
+--- !u!114 &-4219887979103333217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4983321916444859880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aea8eaf9d8cea804aa9533eaf3c9392b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8503202932981283481
 MonoBehaviour:
   m_ObjectHideFlags: 0

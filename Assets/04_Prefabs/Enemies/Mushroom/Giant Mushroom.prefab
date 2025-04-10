@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 2939326926269476651}
   - component: {fileID: 7437880310595388649}
   - component: {fileID: 6840350210078049159}
+  - component: {fileID: 3166324366580162153}
   - component: {fileID: 1776583382470439069}
   - component: {fileID: 4804319793059858444}
   - component: {fileID: 1854885358598204437}
@@ -278,21 +279,34 @@ MonoBehaviour:
   detectionMask:
     serializedVersion: 2
     m_Bits: 384
-  chaseFactor: 1
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  chaseFactor: 0
   escapeCircle: 8
-  HasDetected: 0
-  wanderFactor: 1
+  hasDetected: 0
+  wanderFactor: 0
   wanderRadius: 3
   wanderPause: 3
-  attackFactor: 1
+  attackFactor: 0
   attackPoint: {fileID: 3533108293437818996}
   attackRange: 2
   damagePoint: 5
   attackDelay: 2
-  InAttackRange: 0
-  playerMask:
-    serializedVersion: 2
-    m_Bits: 128
+  attackAnimationPlaying: 0
+  deathFactor: 0
+--- !u!114 &3166324366580162153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3333178596548653838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79ed629ad18925249942ccaaca46987b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1776583382470439069
 MonoBehaviour:
   m_ObjectHideFlags: 0

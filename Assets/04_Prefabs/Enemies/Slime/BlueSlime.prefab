@@ -101,7 +101,8 @@ GameObject:
   - component: {fileID: 8977204110893512224}
   - component: {fileID: 807599439294354990}
   - component: {fileID: 1463599735947624043}
-  - component: {fileID: 3481107904319357360}
+  - component: {fileID: -6933478332666280307}
+  - component: {fileID: 7989419332028313288}
   - component: {fileID: 1722257817204684013}
   - component: {fileID: 6130059859547430117}
   - component: {fileID: 2230055253253527744}
@@ -270,7 +271,7 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: -0.0111444}
   m_Radius: 0.634037
---- !u!114 &3481107904319357360
+--- !u!114 &-6933478332666280307
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -279,27 +280,40 @@ MonoBehaviour:
   m_GameObject: {fileID: 4655435180468717122}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b5fe1d6ca131f344a14f1a409598936, type: 3}
+  m_Script: {fileID: 11500000, guid: 9ec782fc4227a6145beee73fda04bef7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  detectionCircle: 4
+  detectionCircle: 5
   stopDistance: 1.5
   detectionMask:
     serializedVersion: 2
     m_Bits: 384
-  chaseFactor: 1
-  HasDetected: 0
-  wanderFactor: 1
+  isBlueSlime: 1
+  chaseFactor: 0
+  hasDetected: 0
+  wanderFactor: 0
   wanderRadius: 3
-  wanderPause: 1
-  attackFactor: 1
-  explosionDamage: 5
-  explosionRadius: 3
-  explosionCircle: {fileID: 3166049002244206829}
+  wanderPause: 0
+  deathFactor: 0
+  explosionDamage: 3
+  explosionRadius: 2
+  explosionCircle: {fileID: 7880640820910836347, guid: 7e02e32c04fb38542afcb699ad8da7f9,
+    type: 3}
   babySlime: {fileID: 4983321916444859880, guid: 7e02e32c04fb38542afcb699ad8da7f9,
     type: 3}
-  InAttackRange: 0
+--- !u!114 &7989419332028313288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4655435180468717122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aea8eaf9d8cea804aa9533eaf3c9392b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1722257817204684013
 MonoBehaviour:
   m_ObjectHideFlags: 0

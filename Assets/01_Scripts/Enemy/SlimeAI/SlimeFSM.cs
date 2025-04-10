@@ -8,17 +8,32 @@ public class SlimeFSM : MonoBehaviour
         Empty,
         Wander,
         Chase,
-        Attack
+        Dead
     }
+    
+    private Transform _playerCoordinates;
+    private float _distanceToPlayer;
     
     private FSM_State _currentState = FSM_State.Empty;
     private SlimeAI _slime;
+    private EnemyHealth _enemyHealth;
 
     private void Start()
     {
-        _slime=GetComponent<SlimeAI>();
+        _playerCoordinates=GameObject.FindGameObjectWithTag("Player").transform;
+        
+        if(TryGetComponent(out _enemyHealth))
+        {
+            Debug.Log("EnemyHealth attached");
+        }
+
+        if (TryGetComponent(out _slime))
+        {
+            Debug.Log("Slime attached");
+        }
         
         SetState(FSM_State.Wander);
+        
     }
 
     private void Update()
@@ -28,21 +43,21 @@ public class SlimeFSM : MonoBehaviour
     }
     private void CheckTransitions(FSM_State state)
     {
+        if (_enemyHealth.Dead)
+        {
+            SetState(FSM_State.Dead);  
+            return;
+        }
         
         switch (state)
         {
             case FSM_State.Wander:
-                if(_slime.HasDetected) SetState(FSM_State.Chase);
+                if(_slime.hasDetected)
+                    SetState(FSM_State.Chase);
                 break;
             case FSM_State.Chase:
-                if(!_slime.HasDetected)
-                    SetState(FSM_State.Wander);
-                if(_slime.HasDetected && _slime.InAttackRange)
-                    SetState(FSM_State.Attack);
-                break;
-            case FSM_State.Attack:
-                if(!_slime.InAttackRange)
-                    SetState(FSM_State.Chase);
+                if(_slime.stopDistance > _distanceToPlayer)
+                    SetState(FSM_State.Dead);
                 break;
             case FSM_State.Empty:
             default:
@@ -53,7 +68,7 @@ public class SlimeFSM : MonoBehaviour
 
     private void OnStateEnter(FSM_State state)
     {
-        Debug.Log($"OnEnter : {state}");
+        //Debug.Log($"OnEnter : {state}");
         
         switch (state)
         {
@@ -63,8 +78,8 @@ public class SlimeFSM : MonoBehaviour
             case FSM_State.Chase:
                 _slime.SeekFactor = 1f;
                 break;
-            case FSM_State.Attack:
-                _slime.AttackFactor = 1f;
+            case FSM_State.Dead:
+                _slime.DeathFactor = 1f;
                 break;
             case FSM_State.Empty:
             default:
@@ -74,7 +89,7 @@ public class SlimeFSM : MonoBehaviour
     }
     private void OnStateExit(FSM_State state)
     {
-        Debug.Log($"OnExit : {state}");
+        //Debug.Log($"OnExit : {state}");
         
         switch (state)
         {
@@ -84,8 +99,8 @@ public class SlimeFSM : MonoBehaviour
             case FSM_State.Chase:
                 _slime.SeekFactor = 0f;
                 break;
-            case FSM_State.Attack:
-                _slime.AttackFactor = 0f;
+            case FSM_State.Dead:
+                _slime.DeathFactor = 0f;
                 break;
             case FSM_State.Empty:
             default:
@@ -94,16 +109,15 @@ public class SlimeFSM : MonoBehaviour
     }
     private void OnStateUpdate(FSM_State state)
     {
-        Debug.Log($"OnUpdate : {state}");
+        //Debug.Log($"OnUpdate : {state}");
 
         switch (state)
         {
             case FSM_State.Chase:
+                _distanceToPlayer=Vector2.Distance(transform.position,_playerCoordinates.transform.position);
                 break;
-            
             case FSM_State.Wander:
-            case FSM_State.Attack: 
-                // Nothing to do yet
+            case FSM_State.Dead:
                 break;
             case FSM_State.Empty:
             default:

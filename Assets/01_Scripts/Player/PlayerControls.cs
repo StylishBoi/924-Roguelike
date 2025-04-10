@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Vector2 = UnityEngine.Vector2;
@@ -21,16 +22,16 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] private float attackDelay = 0.8f;
     [SerializeField] private int damagePoint=1;
     [SerializeField] private LayerMask enemyLayers;
-    private float attackCooldown;
+    private float _attackCooldown;
     
-    Collider2D swordCollider;
+    private Collider2D _swordCollider;
     
-    private const string _horizontal = "Horizontal";
-    private const string _vertical = "Vertical";
-    private const string _lastHorizontal = "LastHorizontal";
-    private const string _lastVertical = "LastVertical";
+    private const string Horizontal = "Horizontal";
+    private const string Vertical = "Vertical";
+    private const string LastHorizontal = "LastHorizontal";
+    private const string LastVertical = "LastVertical";
     private const string _attack = "Attack";
-    private const string _dead = "Dead";
+    private const string Dead = "Dead";
     
     public int SeekDamage    {
         get => damagePoint;
@@ -39,9 +40,18 @@ public class PlayerControls : MonoBehaviour
 
     private void Start()
     {
-        _rb = GetComponent<Rigidbody2D>();
-        _animator = GetComponent<Animator>();
-        _playerHealth = GetComponent<PlayerHealth>();
+        if(TryGetComponent(out _rb))
+        {
+            Debug.Log("Rigidbody attached");
+        }
+        if(TryGetComponent(out _animator))
+        {
+            Debug.Log("Animator attached");
+        }
+        if(TryGetComponent(out _playerHealth))
+        {
+            Debug.Log("Player Health attached");
+        }
     }
 
     private void Update()
@@ -53,35 +63,35 @@ public class PlayerControls : MonoBehaviour
         }
         
         //Player movement, blocks if attacking
-        if (!_playerHealth.Dead && !_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+        if (!_playerHealth.dead && !_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
         {
             _movement.Set(InputManager.Movement.x, InputManager.Movement.y);
         
             _rb.linearVelocity = _movement * moveSpeed;
         }
         //Player death
-        else if (_playerHealth.Dead)
+        else if (_playerHealth.dead)
         {
             Death();
         }
         
         //Player animation
-        _animator.SetFloat(_horizontal, _movement.x);
-        _animator.SetFloat(_vertical, _movement.y);
+        _animator.SetFloat(Horizontal, _movement.x);
+        _animator.SetFloat(Vertical, _movement.y);
 
         if (_movement != Vector2.zero)
         {
-            _animator.SetFloat(_lastHorizontal, _movement.x);
-            _animator.SetFloat(_lastVertical, _movement.y);
+            _animator.SetFloat(LastHorizontal, _movement.x);
+            _animator.SetFloat(LastVertical, _movement.y);
         }
         
         //Attack cooldown
-        attackCooldown+=Time.deltaTime;
+        _attackCooldown+=Time.deltaTime;
     }
 
     public void Attack()
     {
-        if (attackCooldown >= attackDelay)
+        if (_attackCooldown >= attackDelay)
         {
             _animator.SetBool(_attack, true);
             
@@ -89,9 +99,12 @@ public class PlayerControls : MonoBehaviour
 
             foreach (Collider2D enemy in hitEnemies)
             {
-                enemy.GetComponent<EnemyHealth>().DamageTaken(damagePoint,new Vector2(attackPoint.position.x,attackPoint.position.y));
+                if(enemy.TryGetComponent(out EnemyHealth enemyHealth))
+                {
+                    enemyHealth.DamageTaken(damagePoint,new Vector2(attackPoint.position.x,attackPoint.position.y));
+                }
             }
-            attackCooldown = 0;
+            _attackCooldown = 0;
         }
         
         else
@@ -102,7 +115,7 @@ public class PlayerControls : MonoBehaviour
     
     void Death()
     {
-        _animator.SetBool(_dead, true);
+        _animator.SetBool(Dead, true);
 
         if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Death"))
         {
