@@ -102,7 +102,7 @@ public class BatFSM : MonoBehaviour
     }
     private void OnStateUpdate(FSM_State state)
     {
-        Debug.Log($"OnUpdate : {state}");
+        //Debug.Log($"OnUpdate : {state}");
 
         switch (state)
         {

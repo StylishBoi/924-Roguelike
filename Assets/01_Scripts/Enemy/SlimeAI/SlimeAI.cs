@@ -122,11 +122,11 @@ public class SlimeAI : MonoBehaviour
     
     void Wander()
     {
-        //Check if the AI is close to the wander point and starts a timer if they are
-        if ((_path.destination - transform.position).magnitude < 1f)
-        {
-            _wanderTimer += Time.deltaTime;
-        }
+        //Cauculate distance between enemy and player
+        _distance=Vector2.Distance(transform.position,_target.transform.position);
+        
+        //Updates timer of wandering, does not wait for enemy to reach his destination to avoid blockage
+        _wanderTimer += Time.deltaTime;
 
         //When timer is completed, the AI wanders again and the timer reset
         if (_wanderTimer > wanderPause)
@@ -202,6 +202,7 @@ public class SlimeAI : MonoBehaviour
     private Vector2 RandomWanderPoint()
     {
         var point = Random.insideUnitCircle * wanderRadius;
+        point = new Vector2(transform.position.x + point.x,transform.position.y + point.y);
         
         return point;
     }

@@ -146,16 +146,12 @@ public class MushroomAI : MonoBehaviour
     {
         _distanceToPlayer=Vector2.Distance(transform.position,_target.transform.position);
         
-        //Check if the AI is close to the wander point and starts a timer if they are
-        if ((_path.destination - transform.position).magnitude < 1f)
-        {
-            _wanderTimer += Time.deltaTime;
-        }
+        //Updates timer of wandering, does not wait for enemy to reach his destination to avoid blockage
+        _wanderTimer += Time.deltaTime;
 
         //When timer is completed, the AI wanders again and the timer reset
         if (_wanderTimer > wanderPause)
         {
-            Debug.Log("Hello");
             _path.destination = RandomWanderPoint();
             _wanderTimer = 0;
         }
@@ -249,9 +245,8 @@ public class MushroomAI : MonoBehaviour
 
     private Vector2 RandomWanderPoint()
     {
-        Vector2 point = Random.insideUnitCircle * wanderRadius;
-        
-        Debug.Log(point);
+        var point = Random.insideUnitCircle * wanderRadius;
+        point = new Vector2(transform.position.x + point.x,transform.position.y + point.y);
         
         return point;
     }

@@ -162,7 +162,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1112081311
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 10
   m_Sprite: {fileID: -654737500350741434, guid: 463db742c3b5e0c428cc24314e96f794,
     type: 3}
@@ -274,7 +274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  detectionCircle: 5
+  detectionCircle: 4
   stopDistance: 1.5
   detectionMask:
     serializedVersion: 2
@@ -283,11 +283,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   chaseFactor: 0
-  escapeCircle: 7
+  escapeCircle: 6
   hasDetected: 0
   wanderFactor: 0
-  wanderRadius: 5
-  wanderPause: 2
+  wanderRadius: 3
+  wanderPause: 5
   attackFactor: 0
   attackPoint: {fileID: 7647974978683261937}
   attackRange: 1
@@ -348,7 +348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 5
-  radius: 0.7
+  radius: 1
   height: 2
   canMove: 1
   maxSpeed: 1
