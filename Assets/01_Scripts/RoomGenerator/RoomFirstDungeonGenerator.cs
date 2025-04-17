@@ -272,17 +272,27 @@ public class RoomFirstDungeonGenerator : AbstractDungeonGenerator
             else if (i == furthestRoom)
             {
                 //Creates the boss room
-                newRoom = Instantiate(roomPrefabs[2], roomList[i].center, Quaternion.identity, roomHierarchySpawn.transform);
+                newRoom = Instantiate(roomPrefabs[3], roomList[i].center, Quaternion.identity, roomHierarchySpawn.transform);
                 newRoom.name=("(Boss) Room Number : " + (i+1).ToString());
             }
             else
             {
-                //Creates the enemy rooms
-                newRoom = Instantiate(roomPrefabs[1], roomList[i].center, Quaternion.identity, roomHierarchySpawn.transform);
-                newRoom.name=("(Enemy) Room Number : " + (i+1).ToString());
+                //Decides randomly if it's an enemy room or an item room
+                if (Random.value < 0.85f)
+                {
+                    //Creates the enemy rooms
+                    newRoom = Instantiate(roomPrefabs[1], roomList[i].center, Quaternion.identity, roomHierarchySpawn.transform);
+                    newRoom.name=("(Enemy) Room Number : " + (i+1).ToString());
+                }
+                else
+                {
+                    //Creates an item rooms
+                    newRoom = Instantiate(roomPrefabs[2], roomList[i].center, Quaternion.identity, roomHierarchySpawn.transform);
+                    newRoom.name=("(Item) Room Number : " + (i+1).ToString());
+                }
             }
             
-            
+            //Insert the room bounds to the item
             if (newRoom.gameObject.TryGetComponent(out RoomControl outRoomControl))
             {
                 outRoomControl.SetBounds(roomList[i], distanceBetweenRooms);

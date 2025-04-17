@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfd1830de9b9d044c8dac9f31e0ab8e1, type: 3}
-  m_Name: BossRoom
+  m_Name: ItemRoom
   m_EditorClassIdentifier: 
   bounds:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 0, y: 0, z: 0}
   hasEnemies: 0
-  listOfEnemies:
-  - {fileID: 3333178596548653838, guid: 1b022f2fb803ff246adab31b946a7def, type: 3}
-  isBossRoom: 1
-  hasItem: 0
-  listOfItems: []
+  listOfEnemies: []
+  isBossRoom: 0
+  hasItem: 1
+  listOfItems:
+  - {fileID: 1943701130317782718, guid: f2542bf5c65a9b644b89a89fd975865c, type: 3}
+  - {fileID: 4745518181441281455, guid: 4ef2e5de11792f84999d99d8e88aac4a, type: 3}

@@ -9,7 +9,13 @@ public class RoomControl : MonoBehaviour
     {
         if (roomSettings.isBossRoom)
         {
-            Instantiate(roomSettings.enemies[0], transform.position, Quaternion.identity, transform);
+            Instantiate(roomSettings.listOfEnemies[0], transform.position, Quaternion.identity, transform);
+            return;
+        }
+
+        if (roomSettings.hasItem)
+        {
+            Instantiate(roomSettings.listOfItems[Random.Range(0,1)], transform.position, Quaternion.identity, transform);
             return;
         }
         if (roomSettings.hasEnemies)
@@ -30,24 +36,24 @@ public class RoomControl : MonoBehaviour
         switch (random)
         {
             case 0:
-                Instantiate(roomSettings.enemies[0], spawnPos, Quaternion.identity, transform);
-                Instantiate(roomSettings.enemies[0], spawnPos, Quaternion.identity, transform);
+                Instantiate(roomSettings.listOfEnemies[0], spawnPos, Quaternion.identity, transform);
+                Instantiate(roomSettings.listOfEnemies[0], spawnPos, Quaternion.identity, transform);
                 break;
             case 1:
-                Instantiate(roomSettings.enemies[1], spawnPos, Quaternion.identity, transform);
-                Instantiate(roomSettings.enemies[2], spawnPos, Quaternion.identity, transform);
+                Instantiate(roomSettings.listOfEnemies[1], spawnPos, Quaternion.identity, transform);
+                Instantiate(roomSettings.listOfEnemies[2], spawnPos, Quaternion.identity, transform);
                 break;
             case 2:
-                Instantiate(roomSettings.enemies[3], spawnPos, Quaternion.identity, transform);
+                Instantiate(roomSettings.listOfEnemies[3], spawnPos, Quaternion.identity, transform);
                 break;
             case 3:
-                Instantiate(roomSettings.enemies[1], spawnPos, Quaternion.identity, transform);
-                Instantiate(roomSettings.enemies[3], spawnPos, Quaternion.identity, transform);
+                Instantiate(roomSettings.listOfEnemies[1], spawnPos, Quaternion.identity, transform);
+                Instantiate(roomSettings.listOfEnemies[3], spawnPos, Quaternion.identity, transform);
                 break;
             case 4:
-                Instantiate(roomSettings.enemies[2], spawnPos, Quaternion.identity, transform);
-                Instantiate(roomSettings.enemies[2], spawnPos, Quaternion.identity, transform);
-                Instantiate(roomSettings.enemies[2], spawnPos, Quaternion.identity, transform);
+                Instantiate(roomSettings.listOfEnemies[2], spawnPos, Quaternion.identity, transform);
+                Instantiate(roomSettings.listOfEnemies[2], spawnPos, Quaternion.identity, transform);
+                Instantiate(roomSettings.listOfEnemies[2], spawnPos, Quaternion.identity, transform);
                 break;
         }
     }

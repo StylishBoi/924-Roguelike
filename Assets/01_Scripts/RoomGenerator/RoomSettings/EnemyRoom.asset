@@ -16,9 +16,11 @@ MonoBehaviour:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 0, y: 0, z: 0}
   hasEnemies: 1
-  enemies:
+  listOfEnemies:
   - {fileID: 2546316105402834129, guid: 3d8e791c16d4fb44c9006d1a36b269fe, type: 3}
   - {fileID: 4983321916444859880, guid: 7e02e32c04fb38542afcb699ad8da7f9, type: 3}
-  - {fileID: 8509351123786445813, guid: f4e70872180185f4583010c05ea04d33, type: 3}
   - {fileID: 4655435180468717122, guid: 351c770745cbf824e81dde1244f8716b, type: 3}
-  isExit: 0
+  - {fileID: 8509351123786445813, guid: f4e70872180185f4583010c05ea04d33, type: 3}
+  isBossRoom: 0
+  hasItem: 0
+  listOfItems: []
