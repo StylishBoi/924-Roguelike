@@ -1,28 +1,20 @@
 # 924-Roguelike
 SAE - 924 Maximilien - Module 3
 
----Access AI Scene---
+---Essentials---
 
-In assets, you'll have to access the "02_Scenes" folder and open the "DungeonGeneration".
-To generate a dungeon, click on "---PCG---" in the hierachy and then on "RoomFirstGeneration".
-In the inspector for it, you'll see a script called "Room First Dungeon Generator" and at the bottom of it, there's a button to generate a dungeon in the editor.
+THE GAME DOES NOT WORK ON CONTROLLER, YOU WILL HAVE TO PLAY IT WITH MOUSE AND KEYBOARD
 
-There's also multiple settings avaible to toggle for the generation of the dungeon.
+The instructions for the game and how to play can be found directly within the game on the main menu.
+I would recommend to create a build to play to avoid having the gizmos drawings while playing.
+If you are not going to use a build, please start on the main menu, the instructions to access is just under here.
 
----Rooms Functionalities---
+---Scenes---
 
-There's 4 different type of rooms that can spawn :
+They can be found in the assets file, under "02_Scenes".
 
-1 - Spawn Room (No enemies, the player spawn here, unique room)
+"Main Menu" - Where the game starts off
 
-2 - Enemies Room (Contains 2 or more enemies based on a pre-determined pattern, multiple appariations)
+"DungeonGeneration" - Where the main game happens
 
-3 - Item Room (Contains a health or upgrade item, low chance of appearing)
-
-4 - Boss Room (1 Enemy, unique room)
-
-!! THE ENEMIES AND ITEMS IN THE ROOMS ONLY APPEAR WHEN THE GAME IS PLAYING, IT DOES NOT APPEAR IN THE EDITOR!!
-
----Controls---
-
-WASD - Movement | E - Melee Weapon
+"End Screen" - Where you can see your score after the game
