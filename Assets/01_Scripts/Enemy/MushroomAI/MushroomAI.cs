@@ -40,6 +40,7 @@ public class MushroomAI : MonoBehaviour
     
     private Transform _target;
     private float _distanceToPlayer;
+    private float _directionToFace;
     private AIPath _path;
 
     private Vector2 _targetDirection;
@@ -84,14 +85,18 @@ public class MushroomAI : MonoBehaviour
         {
             _player=outPlayer;
         }
+        else
+        {
+            Debug.LogError("Player not found");
+        }
         
         if(TryGetComponent(out _animator))
         {
-            Debug.Log("Animator attached");
+            //Debug.Log("Animator attached");
         }
         if(TryGetComponent(out _path))
         {
-            Debug.Log("AIPath attached");
+            //Debug.Log("AIPath attached");
         }
         
         _contactFilter.SetLayerMask(detectionMask);
@@ -107,7 +112,8 @@ public class MushroomAI : MonoBehaviour
         
         if (_path.desiredVelocity != Vector3.zero)
         {
-            _animator.SetFloat(LastHorizontal, _path.desiredVelocity.x);
+            _directionToFace = _target.position.x - transform.position.x;
+            _animator.SetFloat(LastHorizontal, _directionToFace);
         }
         
         //FSM States
@@ -144,8 +150,11 @@ public class MushroomAI : MonoBehaviour
     
     void Wander()
     {
-        _distanceToPlayer=Vector2.Distance(transform.position,_target.transform.position);
-        
+        if (_target)
+        {
+            _distanceToPlayer = Vector2.Distance(transform.position, _target.transform.position);
+        }
+
         //Updates timer of wandering, does not wait for enemy to reach his destination to avoid blockage
         _wanderTimer += Time.deltaTime;
 

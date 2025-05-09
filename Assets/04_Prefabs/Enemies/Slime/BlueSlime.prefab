@@ -123,7 +123,7 @@ Transform:
   m_GameObject: {fileID: 4655435180468717122}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.47, y: -0.4326471, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -172,7 +172,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1112081311
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: -7078261816480267791, guid: bfeede70efd14484683f5956b4f1194b,
     type: 3}
@@ -296,10 +296,9 @@ MonoBehaviour:
   wanderRadius: 3
   wanderPause: 2
   deathFactor: 0
-  explosionDamage: 3
+  explosionDamage: 2
   explosionRadius: 2
-  explosionCircle: {fileID: 7880640820910836347, guid: 7e02e32c04fb38542afcb699ad8da7f9,
-    type: 3}
+  explosionCircle: {fileID: 3166049002244206829}
   babySlime: {fileID: 4983321916444859880, guid: 7e02e32c04fb38542afcb699ad8da7f9,
     type: 3}
 --- !u!114 &7989419332028313288
@@ -355,7 +354,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 5
-  radius: 0.7
+  radius: 1.25
   height: 2
   canMove: 1
   maxSpeed: 1
@@ -396,8 +395,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 696b8e9455dbe5849a52d3b8c4188db6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  floatingTextPrefab: {fileID: 6571302573157235061, guid: 4f7672bbf02cf954eb6b0ac4a173ed58,
+    type: 3}
+  healthItem: {fileID: 0}
   maxHealth: 3
-  Dead: 0
+  dead: 0
 --- !u!114 &4087502831206193773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -411,4 +413,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashMaterial: {fileID: 2100000, guid: 8d0215ef15e0ce14d97b1c91ada2594e, type: 2}
-  flashDuration: 0.125

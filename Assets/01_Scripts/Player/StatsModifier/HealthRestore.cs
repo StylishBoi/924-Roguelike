@@ -3,7 +3,7 @@ using UnityEngine;
 public class HealthRestore : MonoBehaviour
 {
     [Header("Stats Modifier")]
-    [SerializeField] private int healthGain = 1;
+    [SerializeField] [Range(1,3)] private int healthGain = 1;
     
     private PlayerHealth _playerHealth;
     
@@ -17,7 +17,9 @@ public class HealthRestore : MonoBehaviour
 
     void Heal()
     {
-        _playerHealth.GainHealth+=healthGain;
+        AudioManager.Instance.PlaySfx(AudioManager.Instance.healthSFX);
+        ScoreUI.Instance.ScoreUpdate(5);
+        _playerHealth.HealthGained(healthGain);
         Destroy(gameObject);
     }
     

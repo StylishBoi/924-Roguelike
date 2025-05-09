@@ -24,12 +24,12 @@ public class SlimeFSM : MonoBehaviour
         
         if(TryGetComponent(out _enemyHealth))
         {
-            Debug.Log("EnemyHealth attached");
+            //Debug.Log("EnemyHealth attached");
         }
 
         if (TryGetComponent(out _slime))
         {
-            Debug.Log("Slime attached");
+            //Debug.Log("Slime attached");
         }
         
         SetState(FSM_State.Wander);
@@ -43,7 +43,7 @@ public class SlimeFSM : MonoBehaviour
     }
     private void CheckTransitions(FSM_State state)
     {
-        if (_enemyHealth.Dead)
+        if (_enemyHealth.dead)
         {
             SetState(FSM_State.Dead);  
             return;
@@ -58,6 +58,8 @@ public class SlimeFSM : MonoBehaviour
             case FSM_State.Chase:
                 if(_slime.stopDistance > _distanceToPlayer)
                     SetState(FSM_State.Dead);
+                break;
+            case FSM_State.Dead:
                 break;
             case FSM_State.Empty:
             default:

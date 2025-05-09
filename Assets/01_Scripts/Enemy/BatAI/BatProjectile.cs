@@ -5,23 +5,24 @@ public class BatProjectile : MonoBehaviour
     [SerializeField] float speed = 1f;
     
     private Transform player;
-    private Vector2 target;
     private Rigidbody2D _rb;
 
     private Vector2 direction;
 
     void Start()
     {
+        //Gets the commpoments
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        if(TryGetComponent(out _rb)) {}
         
-        target= new Vector2(player.position.x, player.position.y);
+        //Creates the destination
+        direction = player.position - transform.position;
         
-        direction = (player.position - transform.position).normalized;
-    }
-
-    void FixedUpdate()
-    {
-        transform.Translate(direction * speed * Time.deltaTime);
+        //Makes the bullet move
+        _rb.linearVelocity = direction.normalized * speed;
+        
+        //Make bullet sound
+        AudioManager.Instance.PlaySfx(AudioManager.Instance.batProjectileSFX);
     }
 
     void OnTriggerEnter2D(Collider2D other)

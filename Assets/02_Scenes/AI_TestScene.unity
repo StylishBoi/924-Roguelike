@@ -6080,7 +6080,7 @@ MonoBehaviour:
   manualDebugFloorRoof: 0
   showSearchTree: 0
   unwalkableNodeDebugSize: 0.3
-  logPathResults: 1
+  logPathResults: 0
   maxNearestNodeDistance: 100
   scanOnStartup: 1
   fullGetNearestSearch: 0
@@ -8530,6 +8530,11 @@ PrefabInstance:
     - target: {fileID: 2005065557531097322, guid: 26fdaf79e8f23944bb781460c04da73c,
         type: 3}
       propertyPath: maxHealth
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2005065557531097322, guid: 26fdaf79e8f23944bb781460c04da73c,
+        type: 3}
+      propertyPath: currentHealth
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2005065557531097322, guid: 26fdaf79e8f23944bb781460c04da73c,

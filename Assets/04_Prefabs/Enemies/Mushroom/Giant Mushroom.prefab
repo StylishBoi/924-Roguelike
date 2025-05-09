@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 4804319793059858444}
   - component: {fileID: 1854885358598204437}
   - component: {fileID: 5919579623374198381}
+  - component: {fileID: -2460906569503783361}
   m_Layer: 10
   m_Name: Giant Mushroom
   m_TagString: Enemy
@@ -162,7 +163,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1112081311
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 10
   m_Sprite: {fileID: -654737500350741434, guid: 463db742c3b5e0c428cc24314e96f794,
     type: 3}
@@ -273,7 +274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc1d55da8d5f2347a250d045ab819d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 1.5
   detectionCircle: 6
   stopDistance: 2.5
   detectionMask:
@@ -291,8 +292,8 @@ MonoBehaviour:
   attackFactor: 0
   attackPoint: {fileID: 3533108293437818996}
   attackRange: 2
-  damagePoint: 5
-  attackDelay: 2
+  damagePoint: 3
+  attackDelay: 4
   attackAnimationPlaying: 0
   deathFactor: 0
 --- !u!114 &3166324366580162153
@@ -389,6 +390,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 696b8e9455dbe5849a52d3b8c4188db6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  floatingTextPrefab: {fileID: 6571302573157235061, guid: 4f7672bbf02cf954eb6b0ac4a173ed58,
+    type: 3}
+  healthItem: {fileID: 0}
   maxHealth: 10
   Dead: 0
 --- !u!114 &5919579623374198381
@@ -405,3 +409,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashMaterial: {fileID: 2100000, guid: 8d0215ef15e0ce14d97b1c91ada2594e, type: 2}
   flashDuration: 0.125
+--- !u!114 &-2460906569503783361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3333178596548653838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e863e760a7d0cd4aa043c182442f9ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  exit: {fileID: 7823826493577900236, guid: 4132104f5f2e70d4c83c22c5f82d7f36, type: 3}

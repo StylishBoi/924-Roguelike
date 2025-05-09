@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] private int maxHealth = 5;
+    public int maxHealth = 5;
+    [SerializeField] private GameObject floatingTextPrefab;
     [SerializeField] private float knockbackForce = 500f;
     [SerializeField] private float invincibilityTimer=1f;
     public bool dead;
@@ -11,6 +12,8 @@ public class PlayerHealth : MonoBehaviour
     private float _invincibilityCooldown;
     private Rigidbody2D _rb;
     private DamageFlash _flash;
+    private HealthUI _healthUi;
+    private Collider2D _collider2D;
     
     public int SeekHealth    {
         get => maxHealth;
@@ -22,18 +25,19 @@ public class PlayerHealth : MonoBehaviour
         set => currentHealth = value;
     }
     
-    private void Start()
+    private void Awake()
     {
-        if(TryGetComponent(out _rb))
+        currentHealth = maxHealth;
+        
+        if(TryGetComponent(out _rb)) {}
+        if(TryGetComponent(out _flash)) {}
+        if(TryGetComponent(out _collider2D)){}
+        
+        if(GameObject.FindGameObjectWithTag("HealthUI").TryGetComponent(out HealthUI ui))
         {
-            Debug.Log("Rigidbody attached");
-        }
-        if(TryGetComponent(out _flash))
-        {
-            Debug.Log("Flash attached");
+            _healthUi = ui;
         }
         
-        currentHealth = maxHealth;
     }
 
     void Update()
@@ -43,8 +47,10 @@ public class PlayerHealth : MonoBehaviour
             currentHealth = maxHealth;
         }
         
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && !dead)
         {
+            AudioManager.Instance.PlaySfx(AudioManager.Instance.playerDeathSFX);
+            _collider2D.enabled = false;
             dead = true;
         }
         
@@ -55,7 +61,10 @@ public class PlayerHealth : MonoBehaviour
     {
         if (invincibilityTimer < _invincibilityCooldown)
         {
-            _flash.Flash();
+            AudioManager.Instance.PlaySfx(AudioManager.Instance.playerHitSFX);
+            _healthUi.LowerHealth(damage, currentHealth);
+            UIManager.Instance.Hurt();
+            _flash.Flash(invincibilityTimer);
             currentHealth -= damage;
 
             Vector2 playerPosition = new Vector2(transform.position.x, transform.position.y);
@@ -65,11 +74,37 @@ public class PlayerHealth : MonoBehaviour
             _rb.AddForce(knockback, ForceMode2D.Impulse);
             
             _invincibilityCooldown = 0f;
+            
+            if (floatingTextPrefab)
+            {
+                ShowFloatingText(damage);
+            }
         }
     }
     
     public void HealthGained(int health)
     {
-        currentHealth -= health;
+        currentHealth += health;
+        UIManager.Instance.Healed();
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        
+        if (floatingTextPrefab)
+        {
+            ShowFloatingText(health);
+        }
+        
+        _healthUi.IncreaseHealth(health, currentHealth);
+    }
+    
+    void ShowFloatingText(int textNumber)
+    {
+        var go = Instantiate(floatingTextPrefab, transform.position, Quaternion.identity, transform);
+        if (go.TryGetComponent<TextMesh>(out TextMesh textMesh))
+        {
+            textMesh.text=textNumber.ToString();
+        }
     }
 }

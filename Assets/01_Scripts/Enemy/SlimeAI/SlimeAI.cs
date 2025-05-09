@@ -3,7 +3,6 @@ using UnityEngine;
 using System.Linq;
 using Pathfinding;
 
-
 [RequireComponent(typeof(Animator))]
 public class SlimeAI : MonoBehaviour
 {
@@ -36,6 +35,7 @@ public class SlimeAI : MonoBehaviour
     private PlayerHealth _playerHealth;
     private float _distance;
     private AIPath _path;
+    private Collider2D _collider2D;
 
     private Vector2 _targetDirection;
     private Vector2 hitPosition;
@@ -65,6 +65,8 @@ public class SlimeAI : MonoBehaviour
     
     void Start()
     {
+        if(TryGetComponent(out _collider2D)){}
+        
         explosionCircle.SetActive(false);
         
         if (GameObject.FindGameObjectWithTag("Player").TryGetComponent(out Transform outTarget))
@@ -75,14 +77,15 @@ public class SlimeAI : MonoBehaviour
         if (GameObject.FindGameObjectWithTag("Player").TryGetComponent(out PlayerHealth outPlayer))
         {
             _playerHealth = outPlayer;
+            Debug.Log("Player health has been attached");
         }
         if(TryGetComponent(out _animator))
         {
-            Debug.Log("Animator attached");
+            //Debug.Log("Animator attached");
         }
         if(TryGetComponent(out _path))
         {
-            Debug.Log("AIPath attached");
+            //Debug.Log("AIPath attached");
         }
         
         _contactFilter.SetLayerMask(detectionMask);
@@ -123,7 +126,10 @@ public class SlimeAI : MonoBehaviour
     void Wander()
     {
         //Cauculate distance between enemy and player
-        _distance=Vector2.Distance(transform.position,_target.transform.position);
+        if (_target)
+        {
+            _distance=Vector2.Distance(transform.position,_target.transform.position);
+        }
         
         //Updates timer of wandering, does not wait for enemy to reach his destination to avoid blockage
         _wanderTimer += Time.deltaTime;
@@ -161,6 +167,8 @@ public class SlimeAI : MonoBehaviour
 
     void Death()
     {
+        _collider2D.enabled = false;
+        
         _animator.SetBool(Dead, true);
         
         //Blocks enemy movement when dying
@@ -177,6 +185,8 @@ public class SlimeAI : MonoBehaviour
 
     public void Explosion()
     {
+        AudioManager.Instance.PlaySfx(AudioManager.Instance.playerHitSFX);
+        
         _distance=Vector2.Distance(transform.position,_target.transform.position);
         
         //Damage the player if he's in the explosion radius
@@ -187,9 +197,10 @@ public class SlimeAI : MonoBehaviour
 
         if (isBlueSlime)
         {
-            Instantiate(babySlime, transform.position, Quaternion.identity);
-            Instantiate(babySlime, transform.position, Quaternion.identity);
+            Instantiate(babySlime, transform.position, Quaternion.identity, transform.parent);
+            Instantiate(babySlime, transform.position, Quaternion.identity, transform.parent);
         }
+        
     }
     
     private void OnDrawGizmos()

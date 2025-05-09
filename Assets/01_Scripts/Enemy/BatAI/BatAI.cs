@@ -62,7 +62,7 @@ public class BatAI : MonoBehaviour
         
         if(TryGetComponent(out _animator))
         {
-            Debug.Log("Animator attached");
+            //Debug.Log("Animator attached");
         }
         
         _contactFilter.SetLayerMask(detectionMask);
@@ -138,7 +138,7 @@ public class BatAI : MonoBehaviour
 
     void ProjectileThrow()
     {
-        Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+        Instantiate(projectilePrefab, transform.position, Quaternion.identity, transform);
     }
     
     void Death()

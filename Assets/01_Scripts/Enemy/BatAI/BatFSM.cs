@@ -19,11 +19,11 @@ public class BatFSM : MonoBehaviour
     {
         if(TryGetComponent(out _enemyHealth))
         {
-            Debug.Log("EnemyHealth attached");
+            //Debug.Log("EnemyHealth attached");
         }
         if(TryGetComponent(out _bat))
         {
-            Debug.Log("Bat attached");
+            //Debug.Log("Bat attached");
         }
         
         SetState(FSM_State.Observation);
@@ -36,7 +36,7 @@ public class BatFSM : MonoBehaviour
     }
     private void CheckTransitions(FSM_State state)
     {
-        if (_enemyHealth.Dead)
+        if (_enemyHealth.dead)
         {
             SetState(FSM_State.Dead);  
             return;
